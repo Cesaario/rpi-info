@@ -12,4 +12,4 @@ ENV PORT=8120
 
 EXPOSE 8120
 
-CMD [ "node", "index.js" ]
+CMD [ "npm", "start" ]
