@@ -6,6 +6,7 @@ module.exports = obterTemperatura = async () => {
     const temperaturaTratada = Number(stringTemperatura.replace(/[^\d.]/g, ""));
     return temperaturaTratada;
   } catch (e) {
+    console.log(e);
     return null;
   }
 }
