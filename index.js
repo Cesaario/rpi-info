@@ -16,10 +16,13 @@ let sockets = [];
 
 server.on("connection", (socket) => {
   sockets.push(socket);
-});
-
-server.on("close", (socket) => {
-  sockets = sockets.filter((s) => s !== socket);
+  console.log("Nova conexão!");
+  console.log("Clientes conectados: " + sockets.length);
+  socket.on("close", () => {
+    console.log("Conexão fechada!");
+    sockets = sockets.filter(s => s !== socket);
+    console.log("Clientes conectados: " + sockets.length);
+  })
 });
 
 const obterInformacoes = async () => {
@@ -40,13 +43,14 @@ const delay = async (tempoDelay) => new Promise((res) => setTimeout(() => res(),
 
 const main = async () => {
   while(true){
-    const informacoes = await obterInformacoes();
-    console.log(informacoes);
-
+    const informacoes = sockets.length > 0 ? await obterInformacoes() : null;
+    sockets.forEach(s => s.send(JSON.stringify(informacoes)))
     await delay(1000);
   }
 }
+
 main();
+console.log("Iniciando na porta 8000....")
 
 /*
   Temperatura,      vcgencmd measure_temp
