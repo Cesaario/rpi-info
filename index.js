@@ -10,7 +10,7 @@ const {
   obterModelo,
 } = require("./modules");
 
-const server = new ws.Server({ port: 8000 });
+const server = new ws.Server({ port: process.env.PORT });
 
 let sockets = [];
 
@@ -50,7 +50,7 @@ const main = async () => {
 }
 
 main();
-console.log("Iniciando na porta 8000....")
+console.log(`Iniciando na porta ${process.env.PORT}...`)
 
 /*
   Temperatura,      vcgencmd measure_temp
